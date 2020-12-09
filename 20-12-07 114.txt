@@ -1,0 +1,158 @@
+﻿1.인스턴스 함수안에 스태틱 변수와 함수가 올수 있는 이유는?
+인스턴수변수에 static이 붙었음으로 올수있다.
+
+2.메소드 오버로딩이란?
+같은 함수이름으로 파라미터에 갯수와 파라미터 타입을달리하여 함수를 만드는것
+
+3.메소드 오버로딩을 적용한 대표적인 함수는?
+메소드 오버로딩의 대표적인 예로는 println() 메소드를 들 수 있습니다.
+
+4.this 함수에 대하여 설명하시오.
+this는 인스턴스의 자기 자신을 의미한다. this.은 주로 필드(전역변수)와 메소드 또는 생성자의 매개변수가 동일할 때 인스턴스 필드임을 명확히 하기 위해 사용
+
+5.this란 무엇인가?
+this란 자기 자신 객체를 가리키는 포인터이다.
+
+6.스트링 객체를 생성하는 2가지 방법은?
+문자열 리터럴 이용:String str1 = "Hello";
+new 연산자 + 문자열 이용 : String str2 = new String("Hello")
+
+.아래의 결과를 예측하고,이유를 설명하시오.
+String str1 = "Simple String";
+String str2 = "Simple String";
+   
+      String str3 = new String("Simple String");
+      String str4 = new String("Simple String");
+   
+      if(str1 == str2)
+         System.out.println("str1과 str2는 동일 인스턴스 참조");
+      else
+         System.out.println("str1과 str2는 다른 인스턴스 참조");
+   
+      if(str3 == str4)
+         System.out.println("str3과 str4는 동일 인스턴스 참조");
+      else
+         System.out.println("str3과 str4는 다른 인스턴스 참조");
+
+str1과 str2는 동일 인스턴스 참조
+str3과 str4는 다른 인스턴스 참조
+
+str1과 str2와 주소가 같고
+str3과 str4도 주소가 같다.
+
+7.immutable 에 대하여 설명하시오.
+생성후 변경 불가한 객체 그래서 immutable에는 set메소드가 존재하지않고 멤버 변수를 변경할 수 없다.
+
+8. 사용자로부터 받은 문자열(영문으로)에서 자음과 모음 개수를 계산하는 프로그램을 작성하라.
+import java.util.Scanner;
+
+public class practice {
+	
+	    String str;
+	    
+	    public void input(){
+	        Scanner sc = new Scanner(System.in);
+	        System.out.print("문자열 입력 :");
+	        str = sc.nextLine();
+	        
+	    }
+	    public void alpacount(){
+	        int vowel=0, consonant=0;
+	        for(int i=0;i<str.length();i++){
+	            char c = str.charAt(i);
+	            switch(c){
+	            case 'a': case 'e': case 'i': case 'o': case 'u': 
+	            case 'A': case 'E': case 'I': case 'O': case 'U':
+	                
+	                vowel++; break;
+	            case ' ':
+	                break;
+	            default:
+	                consonant++; break;
+	            }
+	        }
+	        System.out.println("모음의 개수는 :"+vowel+" 자음의 개수는 :"+consonant);
+	        
+	    }
+}
+class Alpabet{
+	
+public static void main(String[] args) {
+	  Alpabet al = new Alpabet();
+      al.input();
+      al.alpacount(); 
+	}
+ }
+
+9. 사용자로부터 키를 입력받아서 표준 체중을 계산한 후에 사용자의 체중과 비교하여 저체중인지, 표준인지, 과체중인지를 판단하는 프로그램을 작성하라. 표준 체중 계산식은 다음을 사용하라.
+표준체중 = ( 키 - 100 ) * 0.9
+import java.util.Scanner;
+
+public class Weight {
+
+	public static void main(String[] args) {
+		
+		double Avg_weight;
+		int Height,Weight;
+		
+		System.out.println("키와 몸무게 입력");
+		Scanner scanner = new Scanner(System.in);
+		Height = scanner.nextInt();
+		Weight = scanner.nextInt();
+		
+		Avg_weight = (Height - 100) * 0.9;
+		
+		if(Weight > Avg_weight + 10) {
+			System.out.println("과체중 입니다");
+		}else if(Weight < Avg_weight - 10) {
+			System.out.println("저체중입니다");
+		}else {
+			System.out.println("정상입니다");
+		}
+	}
+
+}
+
+10. 2와 100 사이에 있는 모든 소수(prime number)를 찾는 프로그램을 작성하라. 주어진 정수 k를 2부터 k-1까지의 숫자로 나누어서 나머지가 0인 것이 하나라도 있으면 소수가 아니다.
+
+public class Number {
+	 public static void main(String[] args) {
+	        int i,j,k;
+	        System.out.print("Prime number : ");
+	        for(i=2;i<=100;i++){
+	            k=0;
+	            for(j=2;j<=i-1;j++){
+	                if(i%j==0) k++;
+	            }
+	            if(k==0) System.out.print(i + " ");
+	        }
+}
+}
+11.사용자에게 받은 문자열을 역순으로 화면에 출력하는 프로그램을 작성하시오.
+입력:abcde
+출력:edcba
+
+
+
+import java.util.Scanner;
+
+public class ClassMethod {
+	String write;
+
+	public ClassMethod(String write) {
+		this.write = write;
+	}
+
+	void play() {
+		for (int i = write.length() - 1; i >= 0; i--) {
+			System.out.print(write.charAt(i));
+		}
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		ClassMethod r1 = new ClassMethod(sc.next());
+		r1.play();
+	}
+
+}
