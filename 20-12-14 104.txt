@@ -1,0 +1,296 @@
+﻿1.Object 클래스에 대하여 설명하시오.
+Object 클래스. java.lang.Object 클래스는 자바 API의 모든 클래스와 사용자가 정의한 모든 클래스의 최상위 클래스이다. 즉, 모든 자바 클래스들은 Object 클래스로부터 상속받는다. 사용자가 클래스를 정의할 때 클래스 선언부에 명시적으로 extends java.lang.Object를 지정하지 않아도 자동으로 상속받게 된다. 다시 말해 Object 클래스의 모든 메서드와 변수는 다른 모든 클래스에서도 사용 가능할 수 있다는 말이다.
+
+2.아래와 같이 출력되는 이유를 하시오.
+
+class A {
+	
+	 @Override
+	 public String toString() {
+		
+		 return "이것은 A 클래스 입니다.";
+	 }	
+}
+
+public class TestMain {
+	public static void main(String[] args) {
+		A a  = new A();
+		System.out.println(a);
+		
+	   }		
+}
+===============
+이것은 A 클래스 입니다.
+toString메서드가 object 클래스에서 오버라이딩 되었기 때문
+
+3. class 이름 및 함수 에서 final 의 의미는?
+
+4.연습문제 7-22 번을 푸시오.
+package Jokbo;
+
+public class Point {
+	int x;
+	int y;
+	
+	Point(){
+		this(0,0);
+	}
+	Point(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	public String toString() {
+		return "["+x+","+y+"]";
+	}
+
+}
+
+class Q723 {
+	public static double sumArea(Shape[] arr) {
+		double sum = 0.0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i].calcArea();
+		}
+		return sum;
+	}
+
+	public static void main(String[] args) {
+		Shape[] arr = {new Circle(5,0), new Rectangle(3, 4),new Circle(1)};
+		System.out.println("면접의 합: " + sumArea(arr));
+
+	}
+
+}
+
+package Jokbo;
+
+abstract class Shape {
+	Point p;
+
+	Shape() {
+		this(new Point(0, 0));
+	}
+
+	Shape(Point P) {
+		this.p = p;
+	}
+
+	abstract double calcArea();
+
+	Point getPosition() {
+		return p;
+	}
+
+	void setPosition(Point p) {
+		this.p = p;
+	}
+}
+
+class Circle extends Shape {
+	double r;
+
+	Circle(double r) {
+		this(new Point(0, 0), r);
+	}
+
+	Circle(Point p, double r) {
+		super(p);
+		this.r = r;
+	}
+
+	public Circle(int i, int j) {
+		
+	}
+
+	@Override
+	double calcArea() {
+		return Math.PI * r * r;
+	}
+}
+
+class Rectangle extends Shape {
+	double width;
+	double height;
+
+	Rectangle(double width, double height) {
+		this(new Point(0, 0), width, height);
+	}
+
+	Rectangle(Point p, double width, double height) {
+		super(p);
+		this.width = width;
+		this.height = height;
+	}
+
+	}
+}
+
+5.연습문제 7-23 번을 푸시오.
+class Q723 {
+	public static double sumArea(Shape[] arr) {
+		double sum = 0.0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i].calcArea();
+		}
+		return sum;
+	}
+
+	public static void main(String[] args) {
+		Shape[] arr = {new Circle(5,0), new Rectangle(3, 4),new Circle(1)};
+		System.out.println("면접의 합: " + sumArea(arr));
+
+	}
+6. interface 와 class 의 차이는
+Interface는 선언부 Class는 구현부이다. 
+
+7. 다음을 프로그램 하시오.[필수]
+interface Printable { // MS가 정의하고 제공한 인터페이스
+   public void print(String doc);
+}
+ SPrinterDriver 와 LPrinterDriver를 만드시오
+======================
+
+public static void main(String[] args) {
+   String myDoc = "This is a report about...";
+   
+   // 삼성 프린터로 출력
+   Printable prn = new SPrinterDriver();
+   prn.print(myDoc);
+   System.out.println();
+
+   // LG 프린터로 출력
+   prn = new LPrinterDriver();
+   prn.print(myDoc);
+}
+================================================
+출력: From Samsung printer
+This is a report about ...
+
+From LG printer
+This is a report about ...
+==================================
+
+interface Printable {
+	public void print(String doc);
+}
+
+class SPrinterDriver implements Printable{
+	
+	public void print(String doc) {
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+	
+}
+
+class LPrinterDriver implements Printable{
+	
+	public void print(String doc) {
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+}
+
+
+public class Print {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String myDoc = "This is a report about...";
+
+		Printable prn = new SPrinterDriver();
+		prn.print(myDoc);
+		System.out.println();
+
+		prn = new LPrinterDriver();
+		prn.print(myDoc);
+
+	}
+}
+
+
+8.@Override 에 대하여 설명하시오.
+추상클래스에서 구현하지 않은 메소드를 서브클래스에서 구현할때 오버라이딩 해서 사용
+
+9.interface 에 대하여 설명하시오.
+메소드의 몸체를 갖지않는다
+따라서 인스턴스 생성불가 참조변수 선언 가능
+
+10.interface에 올수 있는 두가지는?
+public static final
+public abstract
+
+11.abstract 키워드에 대하여 설명하시오.
+abstract는 추상클래스이다,
+-한 개 이상의 추상메서드를 가지는 클래스
+-일반적인 클래스는 세부적이고,구체적 ex)강아지과,개과
+
+12. 아래의 출력 결과가 아래와 같이 나오도록 프로그래밍 하시오.
+Object obj = new Circle(10);
+System.out.println(obj);
+=================
+출력: 넓이는 100 입니다.
+
+package Jokbo;
+
+public class CircleMain {
+
+	public static void main(String[] args) {
+		
+		Object obj = new Circle1(10);
+		System.out.println(obj);
+	}
+}
+
+class Circle1{
+	private int r;
+	
+	public Circle1(int r) {
+		this.r = r;
+	}
+	
+	public int calcArea() {
+		return r * r;
+	}
+	
+	@Override
+	public String toString() {
+		return "넓이는 " + calcArea() + " 입니다";
+	}
+}
+
+13. 아래의 메모리를 그리시오.
+class MobilePhone {
+    protected String number;
+    
+    public MobilePhone(String num) {
+        number = num;
+    }    
+    public void answer() {
+        System.out.println("Hi~ from " + number);
+    }
+}
+
+class SmartPhone extends MobilePhone { 
+    private String androidVer;
+    
+    public SmartPhone(String num, String ver) {
+        super(num);
+        androidVer = ver;
+    }   
+    public void playApp() {
+        System.out.println("App is running in " + androidVer);
+    }
+}
+=======================================
+	MobilePhone phone = new SmartPhone("010-555-777", "Nougat");
+    	phone.answer();    	
+    	SmartPhone s = (SmartPhone)phone;    	
+    	s.playApp();
+
+
+
+
+
+
+4 5 7 12
