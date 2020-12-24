@@ -1,0 +1,303 @@
+﻿1.ArrayList 와 LinkedList 의 장단점은?
+
+ArrayList<E> 단점
+-저장공간을 늘리는 과정에서 시간이 비교적 많이 소요된다
+-인스턴스 삭제 과정에서 많은 연산이 필요할수았더, 따라서 느랄수있다
+ArrayList<E> 장점
+저장돤 인스턴스의 참조가 빠르다.
+
+LinkedList<E> 단점
+- 저장돤 인스턴스의 참조과정이 배열에 비해 복잡하다 따라서 느릴수있다
+LinkedList<E> 장점
+-저장공간을 늘리는 과정이 간단하다.
+-저장된 인스턴스의 삭제 과정이 단순하다
+
+2.Scanner 클래스로 -1이 입력될 때까지 양의 정수를 입력받아  저장하고 검색하여 가장 큰 수를 출력하는 프로그램을 작성하라
+
+정수(-1이 입력될 때까지)>> 10 6 22 6 88 77 -1
+
+가장 큰 수는 88
+
+package Jokbo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class BigNum {
+	private ArrayList<Integer> num;
+
+	public BigNum() {
+		num = new ArrayList<Integer>();
+	}
+
+	private void input() {
+		Scanner sc = new Scanner(System.in);
+		int temp;
+
+		while (true) {
+			System.out.print("정수(-1이 입력될 때까지)>>");
+
+			temp = sc.nextInt();
+			num.add(temp);
+
+			if (num.get(num.size() - 1) == -1) {
+				break;
+			}
+
+		}
+
+		Collections.sort(num);
+
+		sc.close();
+	}
+
+	private void print() {
+
+		System.out.println("가장 큰 수 는 : " + num.get(num.size() - 1));
+	}
+
+	public void run() {
+		input();
+		print();
+
+	}
+
+}
+
+public class BugNumMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BigNum bigNum = new BigNum();
+		bigNum.run();
+	}
+
+}
+
+
+3.로또 프로그램을 작성하시오.(Set 으로)
+import java.util.HashSet;
+import java.util.Random;
+
+public class SetLotto {
+
+	public static void main(String[] args) {
+		
+		HashSet<Integer> hset = new HashSet<Integer>();
+		Random rand = new Random();
+		
+		while(hset.size()<6) {
+			int num = 1 + rand.nextInt(45);
+			hset.add(num);
+		}
+		System.out.println(hset);
+	}
+
+}
+
+4.Set에 대하여 설명하시오.
+Set은 List와는 다르게 객체(데이터)를 중복해서 저장할 수 없다. 또한 저장된 객체(데이터)를 인덱스로 관리하지 않기 때문에 저장 순서가 보장되지 않는다.
+
+5.도시 이름, 위도, 경도 정보를 가진 Location 클래스를 작성하고, 도시 이름을 '키'로 하는 HashMap<String, Location> 컬렉션을 만들고, 사용자로부터 입력 받아 4개의 도시를 저장하라. 그리고 도시 이름으로 검색하는 프로그램을 작성하라.
+
+도시, 경도, 위도를 입력하세요.
+
+>> 서울, 37, 126
+
+>> LA, 34, -118
+
+>> 파리, 2, 48
+
+>> 시드니, 151, -33
+
+----------------------------------
+
+서울 37 126
+
+LA 34 -118
+
+파리 2 48
+
+시드니 151 -33
+
+----------------------------------
+
+도시 이름 >> 피리
+
+피리는 없습니다.
+
+도시 이름 >> 파리
+
+파리 2 48
+
+도시 이름 >> 그만
+
+package Jokbo;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import com.sun.jdi.Location;
+
+public class Country {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		Location[] location = new Location[4];
+		HashMap<String,Location> manage = new HashMap<String,Location>();
+		System.out.println("도시,경도,위도를 입력하세요.");
+		for(int i = 0;i < location.length;i++) {
+			System.out.println(">>");
+			String text = sc.nextLine();
+			StringTokenizer st = new StringTokenizer(text,",");
+			String city = st.nextToken().trim();
+			int longitude = Integer.parseInt(st.nextToken().trim());
+			int latitude = Integer.parseInt(st.nextToken().trim());
+			location[i] = new Location(city,longitude,latitude);
+			manage.put(city, location[i]);
+		}
+		Set<String> key = manage.keySet();
+		Iterator<String> it = key.iterator();
+		System.out.println("-------------------------");
+		while(it.hasNext()) {
+			String city = it.next();
+			Location s = manage.get(city);
+			System.out.println(s.get_city() + " " + s.get_longtitude() + " " + s.get_latitude);
+		}
+		System.out.println("-------------------------");
+		while(true) {
+			System.out.print("도시 이름 >> ");
+			String city = sc.next();
+			if(city.equals("그만"))
+				break;
+			Location s = manage.get(city);
+			if(s == null)
+				System.out.println(city + "는 없습니다.");
+			else
+				s.find_location(city);		
+		}
+		sc.close();
+		
+	}
+
+}
+
+
+6.Scanner 클래스를 사용하여 6개 학점('A', 'B', 'C', 'D', 'F')을 문자로 입력받아 ArrayList에 저장하고, ArrayList를 검색하여 학점을 점수(A=4.0, B=3.0, C=2.0, D=1.0, F=0)로 변환하여 평균을 출력하는 프로그램을 작성하라.
+
+6개의 학점을 빈 칸으로 분리 입력(A/B/C/D/F) >> A C A B F D
+
+2.3333333333333335
+
+package Jokbo;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Avg {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<Character> stack = new ArrayList<Character>();
+		Scanner sc = new Scanner(System.in);
+		System.out.print("6개의 학점을 빈 칸으로 분리 입력(A/B/C/D/F) >> ");
+		for(int i = 0;i < 6;i++) {
+			char c = sc.next().charAt(0);
+			stack.add(c);
+		}
+		int sum = 0;
+		for(int i = 0; i < stack.size();i++) {
+			char c = stack.get(i);
+			switch(c) {
+			case 'A':
+				sum+=4;
+				break;
+			case 'B':
+				sum+=3;
+				break;
+			case 'C' :
+				sum+=2;
+				break;
+			case 'D':
+				sum+=1;
+				break;
+			case 'F':
+				sum+=0;
+				break;
+				}
+		}
+		double avg = (double)sum/stack.size();
+		System.out.println(avg);
+		sc.close();
+		
+	}
+
+}
+
+
+7.출력이 아래와 같이 나오도록 하시오(필수)
+        HashSet<Num> set = new HashSet<>();
+        set.add(new Num(7799));
+        set.add(new Num(9955));
+        set.add(new Num(7799));
+
+        System.out.println("인스턴스 수: " + set.size());
+
+        for(Num n : set)
+            System.out.print(n.toString() + '\t');
+
+        System.out.println();
+
+====출력
+인스턴스 수: 2
+7799	9955
+
+import java.util.HashSet;
+
+class Num {
+	private int num;
+
+	public Num(int n) {
+		num = n;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(num);
+	}
+
+	@Override
+	public int hashCode() {
+		return num % 3; // num의 값이 같으면 부류도 같다.
+	}
+
+	@Override
+	public boolean equals(Object obj) { // num의 값이 같으면 true 반환
+		if (num == ((Num) obj).num)
+			return true;
+		else
+			return false;
+
+	}
+}
+
+
+8.Set 호출되는 원리와 순서를 설명하시오?
+
+9.아래와 같이 출력되도록 하시오.
+        HashSet<Person> hSet = new HashSet<Person>();
+        hSet.add(new Person("LEE", 10));
+        hSet.add(new Person("LEE", 10));
+       	hSet.add(new Person("PARK", 35));
+        hSet.add(new Person("PARK", 35));
+
+        System.out.println("저장된 데이터 수: " + hSet.size());
+        System.out.println(hSet);
+============
+저장된 데이터 수: 2
+[LEE(10세), PARK(35세)]
